@@ -14,6 +14,7 @@
         <module>dubbo-springboot-demo-provider</module>
         <module>dubbo-springboot-demo-consumer</module>
         <module>dubbo3-demo-provider</module>
+        <module>dubbo3-demo-consumer</module>
     </modules>
     <packaging>pom</packaging>
 

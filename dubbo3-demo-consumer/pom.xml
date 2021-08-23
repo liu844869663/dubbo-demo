@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>dubbo3-demo-provider</artifactId>
+    <artifactId>dubbo3-demo-consumer</artifactId>
 
     <properties>
         <!-- Dubbo 版本 -->
