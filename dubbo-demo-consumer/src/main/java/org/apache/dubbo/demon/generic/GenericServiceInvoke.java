@@ -4,6 +4,7 @@ import org.apache.dubbo.config.ApplicationConfig;
 import org.apache.dubbo.config.MethodConfig;
 import org.apache.dubbo.config.ReferenceConfig;
 import org.apache.dubbo.config.RegistryConfig;
+import org.apache.dubbo.config.utils.ReferenceConfigCache;
 import org.apache.dubbo.rpc.service.EchoService;
 import org.apache.dubbo.rpc.service.GenericService;
 
@@ -42,10 +43,13 @@ public class GenericServiceInvoke {
         reference.setApplication(application);
         reference.setMethods(methods);
 
-        GenericService genericService = reference.get();
+        ReferenceConfigCache cache = ReferenceConfigCache.getCache();
+
+        GenericService genericService = cache.get(reference);
         HashMap<String, Object> param = new HashMap<>();
         param.put("name", "generic");
         Object result = genericService.$invoke("researchDubbo", new String[]{"org.apache.dubbo.demo.model.Scholar"}, new Object[]{param});
         System.out.println("得到的结果：" + result);
+        cache.destroy(reference);
     }
 }
