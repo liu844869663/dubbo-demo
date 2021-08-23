@@ -1,0 +1,21 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+    <!-- 应用名称 -->
+    <dubbo:application name="demo-provider">
+        <dubbo:parameter key="qos.enable" value="true" />
+        <dubbo:parameter key="qos.port" value="22224" />
+    </dubbo:application>
+    <!-- 注册中心 -->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" />
+    <!-- 服务协议 -->
+    <dubbo:protocol name="dubbo" port="9096"/>
+
+    <!-- 注册一个 Spring Bean -->
+    <bean id="studyService" class="org.apache.dubbo.demo.service.impl.StudyServiceImpl"/>
+    <!-- 需要注册的 Dubbo 服务  -->
+    <dubbo:service interface="org.apache.dubbo.demo.service.StudyService" ref="studyService" version="2.0.0" />
+</beans>

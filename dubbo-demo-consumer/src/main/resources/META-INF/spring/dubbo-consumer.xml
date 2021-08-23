@@ -1,0 +1,29 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+    <!-- 应用名称 -->
+    <dubbo:application name="demo-consumer">
+        <dubbo:parameter key="qos.port" value="0"/>
+    </dubbo:application>
+    <!-- 使用注解驱动，使注解生效，这样就可以注解使用 @DubboService 注册服务 -->
+    <!-- 也可以使用 @DubboComponentScan 注解代替这个标签 -->
+    <!-- 当然咯，其他标签的配置可以通过写入 properties 文件中，然后使用 @PropertySource 注解加载到应用环境中，再通过 @EnableDubboConfig 注解驱动解析 Dubbo 配置 -->
+    <!-- 还有，你也可以使用 @EnableDubbo 注解，它是 @DubboComponentScan 和 @EnableDubboConfig 的组合注解 -->
+    <dubbo:annotation package="org.apache.dubbo.demo.service"/>
+    <!-- 注册中心 -->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" />
+    <!-- 服务协议 -->
+    <dubbo:protocol name="dubbo" port="9091"/>
+
+    <!-- 作为消费方，引用服务 -->
+    <dubbo:reference id="StudyService" interface="org.apache.dubbo.demo.service.StudyService" version="1.0.0"/>
+
+    <!-- 注册一个 Spring Bean -->
+    <!-- <bean id="studyDubboService" class="org.apache.dubbo.demo.service.impl.StudyDubboServiceImpl"/>-->
+    <!-- 需要注册的 Dubbo 服务 -->
+    <!-- <dubbo:service interface="org.apache.dubbo.demo.service.StudyDubboService" ref="studyDubboService" version="1.0.0" />-->
+
+</beans>
